@@ -129,7 +129,10 @@ class Action(object):
                             reporter.error(msg)
                             if out_path is not None and out_path.exists():
                                 reporter.separator("=", "log start", Verbosity.QUIET)
-                                reporter.quiet(output)
+                                try:
+                                    reporter.quiet(output)
+                                except:
+                                    reporter.error("Unable to report output, check environment logs for details.")
                                 reporter.separator("=", "log end", Verbosity.QUIET)
                         raise InvocationError(cmd_args_shell, exit_code, output)
                 finally:
